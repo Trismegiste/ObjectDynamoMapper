@@ -6,9 +6,9 @@ $param = [
     "TableName" => "Music",
     "Item" => [
         "Artist" => ['S' => "Malmsteen"],
-        "SongTitle" => ['S' => "Riot in dungeon"],
+        "SongTitle" => ['S' => "Odyssey"],
         "AlbumTitle" => ['S' => "Odyssey"],
-        "Year" => ['N' => 1989],
+        "Year" => ['N' => rand(1980, 2000)],
         "Genre" => ['S' => "Shredder"]
     ]
 ];
@@ -21,3 +21,12 @@ $client = new \Aws\DynamoDb\DynamoDbClient([
 $client->putItem($param);
 
 
+$res = $client->getItem([
+            "TableName" => "Music",
+            'Key' => [
+                "Artist" => ['S' => "Malmsteen"],
+                "SongTitle" => ['S' => "Odyssey"]
+            ]
+]);
+
+print_r($res->get('Item'));

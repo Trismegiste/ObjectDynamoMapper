@@ -11,5 +11,10 @@
         {
             "name": "Trismegiste"
         }
-    ]
+    ],
+    "autoload":{
+        "psr-4": {
+            "Trismegiste\\Canopy\\": "src"
+        }
+    }
 }
