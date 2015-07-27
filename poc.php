@@ -1,14 +1,11 @@
 <?php
 
-use Aws\DynamoDb\DynamoDbClient;
-use Trismegiste\Alkahest\Transform\Delegation\MappingDirector;
-use Trismegiste\Alkahest\Transform\Transformer;
-use Trismegiste\Itaipu\Transform\DynamoDbMappingBuilder;
-use Trismegiste\Itaipu\Transform\RootDecorator;
+use Trismegiste\Itaipu\Facade\RepositoryFactory;
+use Trismegiste\Itaipu\Persistence\Persistable;
 
 include __DIR__ . '/vendor/autoload.php';
 
-class Music
+class Music implements Persistable
 {
 
     public $Artist;
@@ -44,35 +41,12 @@ $sample->genre = ["Futuristic", 'Jazz'];
 $sample->year = 1986;
 $sample->medium = new Medium('CD');
 
-$director = new MappingDirector();
-$mappingChain = $director->create(new DynamoDbMappingBuilder());
-$transform = new RootDecorator(new Transformer($mappingChain));
+$fac = new RepositoryFactory();
+$dynamoDb = $fac->create();
 
-$flat = $transform->desegregate($sample);
-print_r($flat);
+$dynamoDb->putItem($sample);
 
-$param = [
-    "TableName" => "Music",
-    "Item" => $flat
-];
-$client = new DynamoDbClient([
-    'endpoint' => 'http://localhost:8000',
-    'version' => "2012-08-10",
-    'profile' => 'default',
-    'region' => 'us-west-2',
-        ]);
-$client->putItem($param);
-
-
-$res = $client->getItem([
-    "TableName" => "Music",
-    'Key' => [
-        "Artist" => ['S' => "Holdsworth"],
-        "SongTitle" => ['S' => $pk]
-    ]
-        ]);
-
-print_r($res->get('Item'));
-
-$invert = $transform->create($res->get('Item'));
-var_dump($invert);
+var_dump($dynamoDb->getItem([
+            "Artist" => "Holdsworth",
+            "SongTitle" => $pk
+]));
