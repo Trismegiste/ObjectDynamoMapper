@@ -1,0 +1,15 @@
+{
+    "name": "trismegiste/object-dynamodb-mapper",
+    "description": "Object AWS DynamoDB Mapper",
+    "type": "library",
+    "require": {
+        "aws/aws-sdk-php": "^3.2",
+        "trismegiste/alkahest": "^2.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Trismegiste"
+        }
+    ]
+}
