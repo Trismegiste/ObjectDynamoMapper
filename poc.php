@@ -10,8 +10,10 @@ class Music
     public $albumTitle;
     public $year;
     public $genre;
+    public $owned = false;
+    public $duration = ['Zarabeth' => 123, 'Oneiric' => 456];
+    public $empty = null;
 
-    //   public $owned = true;
 }
 
 $pk = 'a' . rand();

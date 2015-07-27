@@ -9,9 +9,9 @@ namespace Trismegiste\Canopy\Colleague;
 use Trismegiste\Alkahest\Transform\Mediator\AbstractMapper;
 
 /**
- * MapArray is a ...
+ * MapMapType is a ...
  */
-class MapArray extends AbstractMapper
+class MapMapType extends AbstractMapper
 {
 
     /**
@@ -19,7 +19,7 @@ class MapArray extends AbstractMapper
      */
     public function mapFromDb($param)
     {
-        return array_map(array($this->mediator, 'recursivCreate'), $param);
+        return array_map(array($this->mediator, 'recursivCreate'), $param['M']);
     }
 
     /**
@@ -27,7 +27,7 @@ class MapArray extends AbstractMapper
      */
     public function mapToDb($arr)
     {
-        return array_map(array($this->mediator, 'recursivDesegregate'), $arr);
+        return ['M' => array_map(array($this->mediator, 'recursivDesegregate'), $arr)];
     }
 
     /**
@@ -35,7 +35,9 @@ class MapArray extends AbstractMapper
      */
     public function isResponsibleFromDb($var)
     {
-        return 'array' == gettype($var);
+        return is_array($var) &&
+                (count($var) === 1) &&
+                isset($var['M']);
     }
 
     /**
@@ -43,7 +45,7 @@ class MapArray extends AbstractMapper
      */
     public function isResponsibleToDb($var)
     {
-        return 'array' == gettype($var);
+        return is_array($var);
     }
 
 }

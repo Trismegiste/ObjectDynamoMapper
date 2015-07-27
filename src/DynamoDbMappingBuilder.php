@@ -10,6 +10,7 @@ use Trismegiste\Alkahest\Transform\Delegation\MappingBuilder;
 use Trismegiste\Alkahest\Transform\Mediator\Mediator;
 use Trismegiste\Alkahest\Transform\Mediator\TypeRegistry;
 use Trismegiste\Canopy\Colleague\MapList;
+use Trismegiste\Canopy\Colleague\MapMapType;
 use Trismegiste\Canopy\Colleague\MapObject;
 use Trismegiste\Canopy\Colleague\MapScalar;
 
@@ -38,6 +39,7 @@ class DynamoDbMappingBuilder implements MappingBuilder
     {
         new MapScalar($algo);
         new MapList($algo);
+        new MapMapType($algo);
     }
 
     public function createObject(TypeRegistry $algo)

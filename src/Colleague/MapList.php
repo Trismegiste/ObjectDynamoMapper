@@ -9,7 +9,7 @@ namespace Trismegiste\Canopy\Colleague;
 use Trismegiste\Alkahest\Transform\Mediator\AbstractMapper;
 
 /**
- * MapArray is a ...
+ * MapList is a ...
  */
 class MapList extends AbstractMapper
 {

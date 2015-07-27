@@ -14,13 +14,13 @@ use Trismegiste\Alkahest\Transform\Mediator\AbstractMapper;
 class MapScalar extends AbstractMapper
 {
 
-    protected $scalarType = array('boolean', 'integer', 'double', 'string');
+    protected $scalarType = array('boolean', 'integer', 'double', 'string', 'NULL');
 
     public function isResponsibleFromDb($var)
     {
         return ( is_array($var) &&
                 (count($var) === 1) &&
-                (isset($var['N']) || isset($var['S']) || isset($var['BOOL']))
+                (isset($var['N']) || isset($var['S']) || isset($var['BOOL']) || isset($var['NULL']))
                 );
     }
 
@@ -36,6 +36,7 @@ class MapScalar extends AbstractMapper
             case 'N': return (double) $var['N'];
             case 'S': return $var['S'];
             case 'BOOL': return (bool) $var['BOOL'];
+            case 'NULL': return null;
         }
     }
 
@@ -47,6 +48,7 @@ class MapScalar extends AbstractMapper
                 return ['N' => $var];
             case 'string': return ['S' => $var];
             case 'boolean': return ['BOOL' => $var];
+            case 'NULL': return ['NULL' => true];
         }
     }
 
