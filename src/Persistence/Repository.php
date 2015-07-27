@@ -35,6 +35,9 @@ class Repository implements RepositoryInterface
         new MapMapType($this->keyHelper);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getItem(array $key)
     {
         try {
@@ -53,6 +56,9 @@ class Repository implements RepositoryInterface
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function putItem(Persistable $obj)
     {
         try {
