@@ -7,6 +7,8 @@
 namespace Trismegiste\Itaipu\Persistence;
 
 use Aws\AwsClientInterface;
+use Aws\DynamoDb\Exception\DynamoDbException;
+use Trismegiste\Alkahest\Transform\MappingException;
 use Trismegiste\Alkahest\Transform\Mediator\Mediator;
 use Trismegiste\Alkahest\Transform\TransformerInterface;
 use Trismegiste\Itaipu\Transform\Colleague\MapMapType;
@@ -35,24 +37,36 @@ class Repository implements RepositoryInterface
 
     public function getItem(array $key)
     {
-        $typedKeys = $this->keyHelper->recursivDesegregate($key)['M'];
+        try {
+            $typedKeys = $this->keyHelper->recursivDesegregate($key)['M'];
 
-        $res = $this->dbClient->getItem([
-            "TableName" => $this->tableName,
-            'Key' => $typedKeys
-        ]);
+            $res = $this->dbClient->getItem([
+                "TableName" => $this->tableName,
+                'Key' => $typedKeys
+            ]);
 
-        return $this->transfo->create($res->get('Item'));
+            return $this->transfo->create($res->get('Item'));
+        } catch (MappingException $e) {
+            throw new PersistenceException('Mapping exception: ' . $e->getMessage(), $e->getCode(), $e);
+        } catch (DynamoDbException $e) {
+            throw new PersistenceException('Database exception: ' . $e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     public function putItem(Persistable $obj)
     {
-        $payload = [
-            "TableName" => $this->tableName,
-            "Item" => $this->transfo->desegregate($obj)
-        ];
+        try {
+            $payload = [
+                "TableName" => $this->tableName,
+                "Item" => $this->transfo->desegregate($obj)
+            ];
 
-        $this->dbClient->putItem($payload);
+            $this->dbClient->putItem($payload);
+        } catch (MappingException $e) {
+            throw new PersistenceException('Mapping exception: ' . $e->getMessage(), $e->getCode(), $e);
+        } catch (DynamoDbException $e) {
+            throw new PersistenceException('Database exception: ' . $e->getMessage(), $e->getCode(), $e);
+        }
     }
 
 }

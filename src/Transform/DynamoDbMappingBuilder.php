@@ -7,6 +7,7 @@
 namespace Trismegiste\Itaipu\Transform;
 
 use Trismegiste\Alkahest\Transform\Delegation\MappingBuilder;
+use Trismegiste\Alkahest\Transform\Mediator\Colleague\MapFailure;
 use Trismegiste\Alkahest\Transform\Mediator\Mediator;
 use Trismegiste\Alkahest\Transform\Mediator\TypeRegistry;
 use Trismegiste\Itaipu\Transform\Colleague\MapList;
@@ -15,14 +16,14 @@ use Trismegiste\Itaipu\Transform\Colleague\MapObject;
 use Trismegiste\Itaipu\Transform\Colleague\MapScalar;
 
 /**
- * DynamoDbMappingBuilder is a ...
+ * DynamoDbMappingBuilder is the chain of recursive mappers used by Mediator
  */
 class DynamoDbMappingBuilder implements MappingBuilder
 {
 
     public function createBlackHole(TypeRegistry $algo)
     {
-
+        new MapFailure($algo);
     }
 
     public function createChain()
