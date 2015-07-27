@@ -2,15 +2,36 @@
 
 include __DIR__ . '/vendor/autoload.php';
 
+class Music
+{
+
+    public $Artist;
+    public $SongTitle;
+    public $albumTitle;
+    public $year;
+    public $genre;
+
+    //   public $owned = true;
+}
+
+$pk = 'a' . rand();
+$sample = new Music();
+$sample->albumTitle = 'Wardenclyffe tower';
+$sample->Artist = "Holdsworth";
+$sample->SongTitle = $pk;
+$sample->genre = ["Futuristic", 'Jazz'];
+$sample->year = 1986;
+
+$director = new Trismegiste\Alkahest\Transform\Delegation\MappingDirector();
+$mappingChain = $director->create(new Trismegiste\Canopy\DynamoDbMappingBuilder());
+$transform = new Trismegiste\Alkahest\Transform\Transformer($mappingChain);
+
+$flat = $transform->desegregate($sample);
+print_r($flat);
+
 $param = [
     "TableName" => "Music",
-    "Item" => [
-        "Artist" => ['S' => "Malmsteen"],
-        "SongTitle" => ['S' => "Odyssey"],
-        "AlbumTitle" => ['S' => "Odyssey"],
-        "Year" => ['N' => rand(1980, 2000)],
-        "Genre" => ['S' => "Shredder"]
-    ]
+    "Item" => $flat
 ];
 $client = new \Aws\DynamoDb\DynamoDbClient([
     'endpoint' => 'http://localhost:8000',
@@ -22,11 +43,14 @@ $client->putItem($param);
 
 
 $res = $client->getItem([
-            "TableName" => "Music",
-            'Key' => [
-                "Artist" => ['S' => "Malmsteen"],
-                "SongTitle" => ['S' => "Odyssey"]
-            ]
-]);
+    "TableName" => "Music",
+    'Key' => [
+        "Artist" => ['S' => "Holdsworth"],
+        "SongTitle" => ['S' => $pk]
+    ]
+        ]);
 
 print_r($res->get('Item'));
+
+$invert = $transform->create($res->get('Item'));
+var_dump($invert);

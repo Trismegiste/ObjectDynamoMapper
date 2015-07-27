@@ -35,7 +35,7 @@ class MapScalar extends AbstractMapper
         switch ($type) {
             case 'N': return (double) $var['N'];
             case 'S': return $var['S'];
-            case 'BOOL': return $var['BOOL'];
+            case 'BOOL': return (bool) $var['BOOL'];
         }
     }
 

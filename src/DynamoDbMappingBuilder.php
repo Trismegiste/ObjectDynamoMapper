@@ -7,10 +7,10 @@
 namespace Trismegiste\Canopy;
 
 use Trismegiste\Alkahest\Transform\Delegation\MappingBuilder;
-use Trismegiste\Alkahest\Transform\Mediator\Colleague\MapArray;
-use Trismegiste\Alkahest\Transform\Mediator\Colleague\MapObject;
 use Trismegiste\Alkahest\Transform\Mediator\Mediator;
 use Trismegiste\Alkahest\Transform\Mediator\TypeRegistry;
+use Trismegiste\Canopy\Colleague\MapList;
+use Trismegiste\Canopy\Colleague\MapObject;
 use Trismegiste\Canopy\Colleague\MapScalar;
 
 /**
@@ -37,7 +37,7 @@ class DynamoDbMappingBuilder implements MappingBuilder
     public function createNonObject(TypeRegistry $algo)
     {
         new MapScalar($algo);
-        new MapArray($algo);
+        new MapList($algo);
     }
 
     public function createObject(TypeRegistry $algo)
