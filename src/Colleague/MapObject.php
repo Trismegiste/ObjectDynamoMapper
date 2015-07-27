@@ -49,7 +49,10 @@ class MapObject extends ObjectMapperTemplate
      */
     public function isResponsibleFromDb($var)
     {
-        return (gettype($var) == 'array') && array_key_exists(self::FQCN_KEY, $var);
+        return (gettype($var) == 'array') &&
+                (count($var) === 1) &&
+                isset($var['M']) &&
+                array_key_exists(self::FQCN_KEY, $var['M']);
     }
 
     /**
@@ -58,6 +61,16 @@ class MapObject extends ObjectMapperTemplate
     public function isResponsibleToDb($var)
     {
         return gettype($var) == 'object';
+    }
+
+    public function mapFromDb($param)
+    {
+        return parent::mapFromDb($param['M']);
+    }
+
+    public function mapToDb($obj)
+    {
+        return ['M' => parent::mapToDb($obj)];
     }
 
 }
