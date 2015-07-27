@@ -33,7 +33,7 @@ class MapScalar extends AbstractMapper
     {
         $type = array_keys($var)[0];
         switch ($type) {
-            case 'N': return (double) $var['N'];
+            case 'N': return preg_match('#^-?[0-9]+$#', $var['N']) ? (int) $var['N'] : (double) $var['N'];
             case 'S': return $var['S'];
             case 'BOOL': return (bool) $var['BOOL'];
             case 'NULL': return null;

@@ -6,17 +6,17 @@
 
 namespace Trismegiste\Canopy;
 
-use Mother;
+use Trismegiste\Alkahest\Transform\TransformerInterface;
 
 /**
- * RootDecorator is a ...
+ * RootDecorator is a decorator for Transformer for the root entity special case
  */
-class RootDecorator implements \Trismegiste\Alkahest\Transform\TransformerInterface
+class RootDecorator implements TransformerInterface
 {
 
     protected $embed;
 
-    public function __construct(\Trismegiste\Alkahest\Transform\TransformerInterface $transf)
+    public function __construct(TransformerInterface $transf)
     {
         $this->embed = $transf;
     }
