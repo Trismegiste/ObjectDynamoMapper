@@ -4,7 +4,7 @@
  * ObjectDynamoDbMapper
  */
 
-namespace Trismegiste\Itaipu\Colleague;
+namespace Trismegiste\Itaipu\Transform\Colleague;
 
 use Trismegiste\Alkahest\Transform\Mediator\Colleague\ObjectMapperTemplate;
 

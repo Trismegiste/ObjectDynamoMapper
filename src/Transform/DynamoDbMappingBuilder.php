@@ -4,15 +4,15 @@
  * ObjectDynamoDbMapper
  */
 
-namespace Trismegiste\Itaipu;
+namespace Trismegiste\Itaipu\Transform;
 
 use Trismegiste\Alkahest\Transform\Delegation\MappingBuilder;
 use Trismegiste\Alkahest\Transform\Mediator\Mediator;
 use Trismegiste\Alkahest\Transform\Mediator\TypeRegistry;
-use Trismegiste\Itaipu\Colleague\MapList;
-use Trismegiste\Itaipu\Colleague\MapMapType;
-use Trismegiste\Itaipu\Colleague\MapObject;
-use Trismegiste\Itaipu\Colleague\MapScalar;
+use Trismegiste\Itaipu\Transform\Colleague\MapList;
+use Trismegiste\Itaipu\Transform\Colleague\MapMapType;
+use Trismegiste\Itaipu\Transform\Colleague\MapObject;
+use Trismegiste\Itaipu\Transform\Colleague\MapScalar;
 
 /**
  * DynamoDbMappingBuilder is a ...

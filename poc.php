@@ -3,8 +3,8 @@
 use Aws\DynamoDb\DynamoDbClient;
 use Trismegiste\Alkahest\Transform\Delegation\MappingDirector;
 use Trismegiste\Alkahest\Transform\Transformer;
-use Trismegiste\Itaipu\DynamoDbMappingBuilder;
-use Trismegiste\Itaipu\RootDecorator;
+use Trismegiste\Itaipu\Transform\DynamoDbMappingBuilder;
+use Trismegiste\Itaipu\Transform\RootDecorator;
 
 include __DIR__ . '/vendor/autoload.php';
 
