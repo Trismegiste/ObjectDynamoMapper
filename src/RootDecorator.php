@@ -4,7 +4,7 @@
  * ObjectDynamoDbMapper
  */
 
-namespace Trismegiste\Canopy;
+namespace Trismegiste\Itaipu;
 
 use Trismegiste\Alkahest\Transform\TransformerInterface;
 
